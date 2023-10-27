@@ -1,0 +1,64 @@
+import viajes.*
+
+describe "tests sobre viajes" {
+	const viaje1 = new ExcursionCiudad(atraccionesAVisitar = 4)
+	const viaje2 = new ExcursionCiudadTropical(atraccionesAVisitar = 4)
+	const viaje3 = new ExcursionCiudad(atraccionesAVisitar = 8)
+	const viaje4 = new ExcursionCiudadTropical(atraccionesAVisitar = 8)
+	const viaje5 = new ExcursionCiudadTropical(atraccionesAVisitar = 10)
+	
+	/* tests de viaje 1 */
+	test "el viaje1 es de dos dias" {
+		assert.equals(2, viaje1.cuantosDiasLleva())
+	}
+	test "el viaje1 no implicaEsfuerzo" {
+		assert.notThat(viaje1.implicaEsfuerzo())
+	}
+	test "el viaje1 no sirve para broncearse" {
+		assert.notThat(viaje1.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 2 */
+	test "el viaje2 es de 2 dias" {
+		assert.equals(2, viaje2.cuantosDiasLleva())
+	}
+	test "el viaje2 no implica esfuerzo" {
+		assert.notThat(viaje2.implicaEsfuerzo())
+	}
+	test "el viaje2 sirve para broncearse" {
+		assert.that(viaje2.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 3 */
+	test "el viaje3 lleva 4 dias" {
+		assert.equals(4, viaje3.cuantosDiasLleva())
+	}
+	test "el viaje3 implica esfuerzo" {
+		assert.that(viaje3.implicaEsfuerzo())
+	}
+	test "el viaje3 no sirve para broncearse" {
+		assert.notThat(viaje3.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 4 */
+	test "el viaje4 lleva 5 dias" {
+		assert.equals(5, viaje4.cuantosDiasLleva())
+	}
+	test "el viaje4 implica esfuerzo" {
+		assert.that(viaje4.implicaEsfuerzo())
+	}
+	test "el viaje4 sirve para broncearse" {
+		assert.that(viaje4.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 5 */
+	test "el viaje5 lleva 6 dias" {
+		assert.equals(6, viaje5.cuantosDiasLleva())
+	}
+	test "el viaje5 no implica esfuerzo" {
+		assert.notThat(viaje5.implicaEsfuerzo())
+	}
+	test "el viaje5 sirve para broncearse" {
+		assert.that(viaje5.sirveParaBroncearse())
+	}
+}
