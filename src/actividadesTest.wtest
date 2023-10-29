@@ -1,0 +1,133 @@
+import actividades.*
+import socios.*
+
+describe "tests sobre viajes" {
+	const viaje1 = new ExcursionCiudad(atraccionesAVisitar = 4)
+	const viaje2 = new ExcursionCiudadTropical(atraccionesAVisitar = 4)
+	const viaje3 = new ExcursionCiudad(atraccionesAVisitar = 8)
+	const viaje4 = new ExcursionCiudadTropical(atraccionesAVisitar = 8)
+	const viaje5 = new ExcursionCiudadTropical(atraccionesAVisitar = 10)
+	const viaje6 = new SalidaDeTrekking(kmADeSenderosRecorrer = 100, diasDeSolPorAnio = 130)
+	const viaje7 = new SalidaDeTrekking(kmADeSenderosRecorrer = 50, diasDeSolPorAnio = 240)
+	const viaje8 = new SalidaDeTrekking(kmADeSenderosRecorrer = 250, diasDeSolPorAnio = 130)
+	
+	/* tests de viaje 1 */
+	test "el viaje1 es de dos dias" {
+		assert.equals(2, viaje1.cuantosDiasLleva())
+	}
+	test "el viaje1 no implicaEsfuerzo" {
+		assert.notThat(viaje1.implicaEsfuerzo())
+	}
+	test "el viaje1 no sirve para broncearse" {
+		assert.notThat(viaje1.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 2 */
+	test "el viaje2 es de 2 dias" {
+		assert.equals(2, viaje2.cuantosDiasLleva())
+	}
+	test "el viaje2 no implica esfuerzo" {
+		assert.notThat(viaje2.implicaEsfuerzo())
+	}
+	test "el viaje2 sirve para broncearse" {
+		assert.that(viaje2.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 3 */
+	test "el viaje3 lleva 4 dias" {
+		assert.equals(4, viaje3.cuantosDiasLleva())
+	}
+	test "el viaje3 implica esfuerzo" {
+		assert.that(viaje3.implicaEsfuerzo())
+	}
+	test "el viaje3 no sirve para broncearse" {
+		assert.notThat(viaje3.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 4 */
+	test "el viaje4 lleva 5 dias" {
+		assert.equals(5, viaje4.cuantosDiasLleva())
+	}
+	test "el viaje4 implica esfuerzo" {
+		assert.that(viaje4.implicaEsfuerzo())
+	}
+	test "el viaje4 sirve para broncearse" {
+		assert.that(viaje4.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 5 */
+	test "el viaje5 lleva 6 dias" {
+		assert.equals(6, viaje5.cuantosDiasLleva())
+	}
+	test "el viaje5 no implica esfuerzo" {
+		assert.notThat(viaje5.implicaEsfuerzo())
+	}
+	test "el viaje5 sirve para broncearse" {
+		assert.that(viaje5.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 6 */
+	test "el viaje 6 lleva 2 dias" {
+		assert.equals(viaje6.cuantosDiasLleva(), 2)
+	}
+	test "el viaje 6 implica ezfuerzo" {
+		assert.that(viaje6.implicaEsfuerzo())
+	}
+	test "el viaje 6 no sirve para broncearse" {
+		assert.notThat(viaje6.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 7 */
+	test "el vaije 7 lleva 1 dia" {
+		assert.equals(viaje7.cuantosDiasLleva(), 1)
+	}
+	test "el viaje 7 implica ezfuerzo" {
+		assert.notThat(viaje7.implicaEsfuerzo())
+	}
+	test "el viaje 7 no sirve para broncearse" {
+		assert.that(viaje7.sirveParaBroncearse())
+	}
+	
+	/* tests de viaje 8 */
+	test "el vaije 8 lleva 5 dia" {
+		assert.equals(viaje8.cuantosDiasLleva(), 5)
+	}
+	test "el viaje 8 implica ezfuerzo" {
+		assert.that(viaje8.implicaEsfuerzo())
+	}
+	test "el viaje 8 no sirve para broncearse" {
+		assert.that(viaje8.sirveParaBroncearse())
+	}
+}
+
+describe "test de socios" {
+	const roque = new Socios(maxActs = 2)
+	const roqueViaje1 = new ViajesDePlaya(largoPlaya = 1000)
+	const roqueViaje2 = new ViajesDePlaya(largoPlaya = 2000)
+	const ana = new Socios(maxActs = 3)
+	const anaGimnasia1 = new Gimnasia()
+ 	
+	method initialize() {
+		roque.agregarActsRealizadas([roqueViaje1, roqueViaje2])
+		ana.agregarActsRealizadas([roqueViaje1, roqueViaje2])
+	}
+	
+	test "roque adora al sol" {
+		assert.that(roque.esAdoradorDelSol())
+	}
+	test "las actividades forzadas de roque son la de su viaje a la playa de 2000m" {
+		assert.equals(roque.actsEsforzadas(), [roqueViaje2])
+	}
+	test "no se le puede agregar mas actividades a roque" {
+		assert.throwsException({roque.agregarActsRealizadas([new Gimnasia()])})
+	}
+	
+    test "ana no adora al sol" {
+    	ana.agregarActsRealizadas([anaGimnasia1])
+		assert.notThat(ana.esAdoradorDelSol())
+	}
+	test "las actividades forzadas de ana son la de su viaje a la playa de 2000m" {
+		ana.agregarActsRealizadas([anaGimnasia1])
+		assert.equals(ana.actsEsforzadas(), [roqueViaje2, anaGimnasia1])
+	}
+}
